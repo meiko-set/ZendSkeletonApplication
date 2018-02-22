@@ -34,11 +34,22 @@ return [
                     ],
                 ],
             ],
+            'api' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\ApiController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
+            Controller\ApiController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [
@@ -55,6 +66,9 @@ return [
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
+        ],
+        'strategies' => [
+            'ViewJsonStrategy',
         ],
     ],
 ];
