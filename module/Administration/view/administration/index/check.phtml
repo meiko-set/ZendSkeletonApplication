@@ -1,0 +1,78 @@
+<h1>PHP Erweiterungen</h1>
+
+<table class="table table-bordered">
+<thead>
+  <tr>
+    <th>Titel</th>
+    <th>Beschreibung/Information</th>
+    <th>Ergebnis</th>
+  </tr>
+</thead>
+<tbody>
+<?php foreach($this->extensions as $result): ?>
+  <tr class="<?php if($result['result']): ?>success<?php else: ?><?php echo $result['failclass']; ?><?php endif; ?>">
+    <td><?php echo $result['title']; ?></td>
+    <td>
+      <?php if($result['description']): ?>
+      <strong><?php echo $result['description']; ?></strong>
+      <?php endif; ?>
+      <?php if($result['callback']): ?>
+        <br><br>
+        <?php echo call_user_func($result['callback']); ?>
+      <?php endif; ?>
+    </td>
+    <td>
+      <strong><?php if($result['result']): ?>OK<?php else: ?>Fehlgeschlagen<?php endif; ?></strong>
+    </td>
+  </tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+<h1>Systempfade</h1>
+
+<table class="table table-bordered">
+<thead>
+  <tr>
+    <th>Titel</th>
+    <th>Beschreibung/Information</th>
+    <th>Ergebnis</th>
+  </tr>
+</thead>
+<tbody>
+<?php foreach($this->paths as $result): ?>
+  <tr class="<?php if($result['result']): ?>success<?php else: ?><?php echo $result['failclass']; ?><?php endif; ?>">
+    <td><?php echo $result['title']; ?></td>
+    <td>
+      <?php if($result['description']): ?>
+      <strong><?php echo $result['description']; ?></strong>
+      <?php endif; ?>
+      <?php if($result['callback']): ?>
+        <br><br>
+        <?php echo call_user_func($result['callback']); ?>
+      <?php endif; ?>
+    </td>
+    <td>
+      <strong><?php if($result['result']): ?>OK<?php else: ?>Fehlgeschlagen<?php endif; ?></strong>
+    </td>
+  </tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+<h1>I18N</h1>
+
+
+
+<h1>Systeminformation</h1>
+
+<?php
+  ob_start();
+  phpinfo();
+  $content=ob_get_contents();
+  ob_end_clean();
+  if (preg_match('~<body[^>]*>(.*?)</body>~si', $content, $body))
+  {
+    echo str_replace('<table>', '<table class="table table-bordered">', $body[1]);
+  }
+?>
