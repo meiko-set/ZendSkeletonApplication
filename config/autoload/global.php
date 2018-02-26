@@ -10,7 +10,15 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  */
-
 return [
-    // ...
+    'translator' => [
+        'locale' => 'de_DE',
+        'translation_file_patterns' => [
+            [
+                'type'     => 'phparray',
+                'base_dir' => getcwd() .  '/data/language',
+                'pattern'  => '%s.php',
+            ],
+        ],
+    ],
 ];

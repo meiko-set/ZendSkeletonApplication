@@ -7,7 +7,6 @@
 
 namespace Application;
 
-use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -15,12 +14,13 @@ return [
     'router' => [
         'routes' => [
             'home' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/',
+                    'route'    => '/[:lang]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
+                        'lang'   => 'de',
                     ],
                 ],
             ],
@@ -31,6 +31,7 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
+                        'lang'          => 'de',
                     ],
                 ],
             ],
@@ -51,6 +52,9 @@ return [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\ApiController::class => InvokableFactory::class,
         ],
+        'aliases' => [
+            'Application\Controller\Index' => Controller\IndexController::class,
+         ],
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
